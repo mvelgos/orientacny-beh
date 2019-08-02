@@ -7,6 +7,9 @@ REPO="/tmp/data"
 HEADER="Kat,Por.,Meno,Klub,Kraj,Cas,Rozdiel"
 DELAY=30
 
+# handle ctrl+c
+trap "tput cnorm; exit 0" SIGINT
+
 # check environment first
 if [[ ! -d ${REPO} ]]; then
     mkdir ${REPO}
@@ -42,7 +45,7 @@ while true; do
 
         # show progress bar
         tput cup $(( ${LINES} - 2 )) 0
-        echo "Strana ${PAGE}/${PAGES}"
+        echo "Strana $(( ${PAGE} + 1 ))/$(( ${PAGES} + 1))"
         progress-bar ${DELAY}
         echo -e "\r"
     done
