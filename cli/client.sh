@@ -4,7 +4,7 @@ source progressbar.sh
 
 URL="https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.data.csv"
 REPO="/tmp/data"
-HEADER="Kat;Por.;Meno;Klub;Kraj;Cas;Rozdiel"
+HEADER="Kat,Por.,Meno,Klub,Kraj,Cas,Rozdiel"
 DELAY=30
 
 # check environment first
@@ -33,10 +33,14 @@ while true; do
         STOP=$(( ${START} + ${LINES_PER_PAGE} - 1 ))
         CONTENT=$(sed -n "${START},${STOP}p" data.csv)
 
-        # append header
-        CONTENT=$(echo -e "${HEADER}\n${CONTENT}")
-        echo "${CONTENT}" | column -t -s ";" -o "| "
+        # combine header and content
+        OUTPUT=$(echo -e "${CONTENT}" | column -t -s ";" -o "| " -N ${HEADER})
 
+        # insert separator as second line and print it
+        separator=$(echo "${OUTPUT}" | head -1 | sed 's/[^|]/=/g')
+        echo "${OUTPUT}" | sed "2i${separator}"
+
+        # show progress bar
         tput cup $(( ${LINES} - 2 )) 0
         echo "Strana ${PAGE}/${PAGES}"
         progress-bar ${DELAY}
