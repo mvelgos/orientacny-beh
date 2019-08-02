@@ -5,9 +5,10 @@ source progressbar.sh
 URL="https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.data.csv"
 REPO="/tmp/data"
 HEADER="Kat;Por.;Meno;Klub;Kraj;Cas;Rozdiel"
+DELAY=30
 
 # check environment first
-if [[ ! -d data ]]; then
+if [[ ! -d ${REPO} ]]; then
     mkdir ${REPO}
 fi
 
@@ -38,7 +39,7 @@ while true; do
 
         tput cup $(( ${LINES} - 2 )) 0
         echo "Strana ${PAGE}/${PAGES}"
-        progress-bar
+        progress-bar ${DELAY}
         echo -e "\r"
     done
 done
