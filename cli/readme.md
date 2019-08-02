@@ -21,3 +21,8 @@ V skripte sa nachádza niekoľko premenných:
 * `URL` - URL adresa, z ktorej sa stiahne CSV súbor s výsledkami.
 * `HEADER` - Zoznam položiek hlavičky.
 * `DELAY` - Čas v sekundách, ako dlho sa bude zobrazovať jedna stránka výsledkov.
+
+
+## Screenshot
+
+![Screenshot](screenshot.png)
