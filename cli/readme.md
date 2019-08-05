@@ -1,10 +1,20 @@
 # Konzolový klient
 
-Treba nastaviť príznak na spúšťanie:
+Jednoduchý konzolový klient.
+
+
+## Inštalácia
+
+Pred spustením treba nainštalovať balíky `figlet` a `bc`, pokiaľ sa nenachádzajú vo vašom systéme.
+
+Treba taktiež nastaviť príznak na spúšťanie:
 
 ```bash
 chmod +x client.sh
 ```
+
+
+## Spustenie
 
 Použitie:
 
@@ -21,6 +31,7 @@ V skripte sa nachádza niekoľko premenných:
 * `URL` - URL adresa, z ktorej sa stiahne CSV súbor s výsledkami.
 * `HEADER` - Zoznam položiek hlavičky.
 * `DELAY` - Čas v sekundách, ako dlho sa bude zobrazovať jedna stránka výsledkov.
+* `CATEGORIES` - Zoznam kategórií, ktoré majú byť vypísané.
 
 
 ## Screenshot
