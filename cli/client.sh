@@ -33,6 +33,7 @@ function get_pages {
     fi
 }
 
+
 function usage {
     echo "Usage: ${0} CONFIG"
 }
@@ -46,6 +47,7 @@ function main {
         exit 1
     fi
 
+    # check if config file exist
     local config="${1}"
     if [[ ! -f "${config}" ]]; then
         printf "Error: Configuration file '"${config}"' doesn't exist.\n"
@@ -87,16 +89,16 @@ function main {
             get_pages "${data}" $lines_per_page
 
             # pagination
-            stop=0
+            let stop=0
             for page in $(seq ${pages}); do
                 clear
 
                 # extract lines in the range from START to STOP
-                start=$(( ${stop} + 1 ))
+                let start=(${stop} + 1)
                 if [[ ${page} -eq 1 ]]; then
-                    stop=$(( ${start} + ${lines_per_page} - 1 ))
+                    let stop=( ${start} + ${lines_per_page} - 1 )
                 else
-                    stop=$(( ${start} + ${lines_per_page} - ${TOP_LINES} - 2 ))
+                    let stop=( ${start} + ${lines_per_page} - ${TOP_LINES} - 2 )
                 fi
                 content=$(echo "${data}" | sed -n "${start},${stop}p")
 
@@ -121,7 +123,7 @@ function main {
 
                 # show progress bar
                 tput cup $(( ${lines} - 2 )) 0
-                echo "Page ${page} of ${pages}"
+                printf "Page %d of %d" "${page}" "${pages}"
                 progress-bar ${DELAY}
                 echo -e "\r"
             done
