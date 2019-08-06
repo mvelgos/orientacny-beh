@@ -61,7 +61,7 @@ while true; do
         data=$(grep "^${category};" data.csv | cut -d';' -f2-)
         
         # extract the number of top runners
-        top_runners=$(echo "${data}" | sed -r '/(MP)\s*$/d' | head -n ${TOP_LINES})
+        top_runners=$(echo "${data}" | sed -r '/(MP|DNF|DNS|DQ|DSQ)\s*$/d' | head -n ${TOP_LINES})
 
         # count nr of pages
         get_pages "${data}" $lines_per_page
