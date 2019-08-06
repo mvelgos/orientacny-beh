@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source config.sh
 source progressbar.sh
 
 function download_data {
@@ -10,13 +11,6 @@ function download_data {
         ln -fs "${file}" data.csv
     fi
 }
-
-URL="https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.data.csv"
-REPO="/tmp/data"
-HEADER="Pos;Name;Organisation;Country;Time;Delta"
-DELAY=5
-CATEGORIES="M35-A M40-A M45-A M45-B M50-A M55-A M60-A M65-A M70-A M75-A W35-A W35-B W40-A W45-A W45-B W50-A W55-A W60-A W65-A W70-A"
-TOP_LINES=3
 
 # handle ctrl+c
 trap "tput cnorm; exit 0" SIGINT
@@ -31,10 +25,14 @@ fi
 while true; do
     download_data
 
-    # count nr of pages based on the number of lines on the screen and nr of lines in the file
+    # check the screen "resolution"
     lines=$(tput lines)
-    #columns=$(tput cols)
-    LINES_PER_PAGE=$(( ${lines} - 15 ))
+    lines_per_page=$(( ${lines} - 15 ))
+    # check if screen is high enough
+    if [[ ${lines_per_page} -lt 0 ]]; then
+        echo "Error: Not enough lines to show." > /dev/stderr
+        exit 1
+    fi
 
     # cycle through categories
     for category in ${CATEGORIES}; do
@@ -45,24 +43,24 @@ while true; do
         top_runners=$(echo "${data}" | sed -r '/(MP)\s*$/d' | head -n ${TOP_LINES})
 
         # count nr of pages
-        pages=$(echo "$(echo "${data}" | wc -l) / (${LINES_PER_PAGE} - ${TOP_LINES})" | bc -q)
+        pages=$(echo "$(echo "${data}" | wc -l) / (${lines_per_page} - ${TOP_LINES} - 1)" | bc -q)
 
         # pagination
         stop=0
-        for page in $(seq 0 ${pages}); do
+        for page in $(seq ${pages}); do
             clear
 
             # extract lines in the range from START to STOP
             start=$(( ${stop} + 1 ))
-            if [[ ${page} -gt 0 ]]; then
-                stop=$(( ${start} + ${LINES_PER_PAGE} - ${TOP_LINES} - 2 ))
+            if [[ ${page} -eq 1 ]]; then
+                stop=$(( ${start} + ${lines_per_page} - 1 ))
             else
-                stop=$(( ${start} + ${LINES_PER_PAGE} - 1 ))
+                stop=$(( ${start} + ${lines_per_page} - ${TOP_LINES} - 2 ))
             fi
             content=$(echo "${data}" | sed -n "${start},${stop}p")
 
             # insert top runners, if page is not first
-            if [[ ${page} -gt 0 ]]; then
+            if [[ ${page} -gt 1 ]]; then
                 separator=$(echo "${HEADER}" | sed -r 's/([^;]*)/.../g')
                 content="${top_runners}\n${separator}\n${content}"
             fi
@@ -83,7 +81,7 @@ while true; do
 
             # show progress bar
             tput cup $(( ${lines} - 2 )) 0
-            echo "Page $(( ${page} + 1 )) of $(( ${pages} + 1))"
+            echo "Page ${page} of ${pages}"
             progress-bar ${DELAY}
             echo -e "\r"
         done
