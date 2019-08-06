@@ -12,6 +12,22 @@ function download_data {
     fi
 }
 
+function get_pages {
+    # ceiling: https://stackoverflow.com/a/12536521/1671256
+    local data="${1}"
+    local lines_per_page="${2}"
+
+    local lines=$(echo "${data}" | wc -l)
+
+    if [[ ${lines} -lt ${lines_per_page} ]]; then
+        let pages=1
+    else
+        local divide=$(( ${lines} - ${lines_per_page} ))
+        local by=$(( ${lines_per_page} - (${TOP_LINES} + 1) ))
+        let pages=$(( 1 + (${divide} + ${by} - 1)/${by} ))
+    fi
+}
+
 # handle ctrl+c
 trap "tput cnorm; exit 0" SIGINT
 
@@ -43,7 +59,7 @@ while true; do
         top_runners=$(echo "${data}" | sed -r '/(MP)\s*$/d' | head -n ${TOP_LINES})
 
         # count nr of pages
-        pages=$(echo "$(echo "${data}" | wc -l) / (${lines_per_page} - ${TOP_LINES} - 1)" | bc -q)
+        get_pages "${data}" $lines_per_page
 
         # pagination
         stop=0
