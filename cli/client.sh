@@ -13,7 +13,7 @@ function download_data {
 
     # normalize downloaded data
     sed -i -e 's/\r$//' -e 's/$/;/' "${file}"
-    sed -i -r '/^(M.{4})(.*);(MP|DNF|DNS|DQ|DSQ)/s/^(M.{4})(.*)$/\1; \2/g' "${file}"
+    sed -i -r '/;[A-Z]+;$/s/^([^;]+;)(.*)/\1 ;\2/g' "${file}"
 }
 
 
@@ -81,7 +81,7 @@ function main {
             data=$(grep "^${category};" data.csv | cut -d';' -f2-)
             
             # extract the number of top runners
-            top_runners=$(echo "${data}" | sed -r '/(MP|DNF|DNS|DQ|DSQ)\s*$/d' | head -n ${TOP_LINES})
+            top_runners=$(echo "${data}" | sed -r '/;[A-Z]+;$/d' | head -n ${TOP_LINES})
 
             # count nr of pages
             get_pages "${data}" $lines_per_page
@@ -114,7 +114,6 @@ function main {
                 echo
                 figlet -w ${width} -c "${category}"
                 echo
-
 
                 # insert separator as second line and print it
                 separator=$(echo "${output}" | head -1 | sed 's/[^|]/=/g')
