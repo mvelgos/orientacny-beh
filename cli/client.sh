@@ -13,8 +13,7 @@ function download_data {
 
     # normalize downloaded data
     sed -i -e 's/\r$//' -e 's/$/;/' "${file}"
-    sed -i -r '/^(M.{4})(.*);(MP|DNF|DNS|DQ|DSQ)/s/^(M.{4})(.*)$/\1;\2/g' "${file}"
-
+    sed -i -r '/^(M.{4})(.*);(MP|DNF|DNS|DQ|DSQ)/s/^(M.{4})(.*)$/\1; \2/g' "${file}"
 }
 
 function get_pages {
