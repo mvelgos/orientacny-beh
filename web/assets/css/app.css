@@ -1,0 +1,13 @@
+body {margin: 0; padding: 0}
+
+#results-list {width: 100%}
+
+.list {margin: 0; padding: 0; list-style-type: none; display: flex}
+.list-horizontal {flex-direction: row}
+.list-vertical {flex-direction: column}
+
+.list .item {margin-bottom: 10px}
+
+.data {margin-right: 5px; display: flex; align-items: center}
+.data:last-child {margin-right: 0}
+.data-ranking {text-align: right}
