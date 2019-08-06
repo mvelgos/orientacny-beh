@@ -10,6 +10,11 @@ function download_data {
     if [[ $? -eq 0 ]]; then
         ln -fs "${file}" data.csv
     fi
+
+    # normalize downloaded data
+    sed -i -e 's/\r$//' -e 's/$/;/' "${file}"
+    sed -i -r '/^(M.{4})(.*);(MP)/s/^(M.{4})(.*)$/\1;\2/g' "${file}"
+
 }
 
 function get_pages {
@@ -53,7 +58,7 @@ while true; do
     # cycle through categories
     for category in ${CATEGORIES}; do
         # extract specific category, remove first column, normalize line endings and append ';'
-        data=$(grep "^${category};" data.csv | cut -d';' -f2- | sed -e 's/\r$//' -e 's/$/;/')
+        data=$(grep "^${category};" data.csv | cut -d';' -f2-)
         
         # extract the number of top runners
         top_runners=$(echo "${data}" | sed -r '/(MP)\s*$/d' | head -n ${TOP_LINES})
