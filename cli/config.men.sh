@@ -1,0 +1,4 @@
+source "config.core.sh"
+
+DELAY=5
+CATEGORIES="M35-A M40-A M45-A M45-B M50-A M55-A M60-A M65-A M70-A M75-A"

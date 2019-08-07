@@ -1,0 +1,4 @@
+source "config.core.sh"
+
+DELAY=5
+CATEGORIES="W35-A W35-B W40-A W45-A W45-B W50-A W55-A W60-A W65-A W70-A"
