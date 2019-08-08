@@ -123,7 +123,7 @@ function main {
 
                 # show progress bar
                 tput cup $(( ${lines} - 2 )) 0
-                printf "Page %d of %d" "${page}" "${pages}"
+                printf "Page %d of %d\n" "${page}" "${pages}"
                 progress-bar ${DELAY}
                 echo -e "\r"
             done

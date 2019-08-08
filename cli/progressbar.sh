@@ -5,7 +5,7 @@ progress-bar() {
   local columns=$(tput cols)
   local delay=$(echo "scale=3; ${duration} / ${columns}" | bc -q)
 
-    already_done() { for ((done=0; done<$elapsed; done++)); do printf "▇"; done }
+    already_done() { for ((done=0; done<$elapsed; done++)); do printf "#"; done }
     remaining() { for ((remain=$elapsed; remain<${columns}; remain++)); do printf " "; done }
     #percentage() { printf "| %s%%" $(( (($elapsed)*100)/(${columns})*100/100 )); }
     clean_line() { printf "\r"; }
