@@ -26,11 +26,20 @@ window.app = new Vue({
                 { label: "W7X", path: "/w7x", filter: "W7" },
             ],
         },
+        countdown: {
+            interval: null,
+            value: {
+                now: null,
+                next: null
+            },
+            percentage: 0
+        }
     },
     watch: {
         racedata: function(){
             let filter = this.getFilterByPath(this.$route.path);
             this.categories = this.getFilteredCategories(filter);
+            this.resetCountdown();
         }
     },
     methods: {
@@ -90,6 +99,15 @@ window.app = new Vue({
                 }
             }
             return result;
+        },
+        resetCountdown: function(){
+            this.countdown.value.next = new Date();
+            this.countdown.value.next.setMilliseconds(this.countdown.value.next.getMilliseconds() + this.settings.ajax.interval);
+        },
+        countdownPercentage: function(){
+            let diffSeconds = parseInt((this.countdown.value.next.getTime() - this.countdown.value.now.getTime()) / 1000);
+            let percentage = parseInt(100 - (100 * diffSeconds / (this.settings.ajax.interval / 1000)));
+            this.countdown.percentage = percentage;
         }
     },
     created: function() {
@@ -100,5 +118,10 @@ window.app = new Vue({
                 self.loadData();
             }, self.settings.ajax.interval);
         }, self.settings.ajax.timeout);
+
+        setInterval(function(){
+            self.countdown.value.now = new Date();
+            self.countdownPercentage();
+        }, 1000);
     }
 }).$mount('#app');
