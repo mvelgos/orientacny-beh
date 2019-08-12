@@ -14,10 +14,12 @@
                 <template>
                     <widget v-for="category in categories">
                         <template v-slot:header>
-                            <h2>{{ category }}</h2>
+                            <h2>{{ category.name }}</h2>
                         </template>
                         <template>
-                            <results-list :items="getResults(category)"></results-list>
+                            <results-list :items="getResults(category.slug, 0, settings.uxui.displayFirstNRacers)"></results-list>
+                            <div class="flex-break"></div>
+                            <results-list :items="getResults(category.slug, settings.uxui.displayFirstNRacers, 10000)"></results-list>
                         </template>
                     </widget>
                 </template>
@@ -28,6 +30,7 @@
         </div>
         <script type="text/javascript" src="assets/js/vendor.js"></script>
         <script type="text/javascript" src="assets/js/flags.js"></script>
+        <script type="text/javascript" src="assets/js/services.js"></script>
         <script type="text/javascript" src="assets/js/components.js"></script>
         <script type="text/javascript" src="assets/js/app.js"></script>
     </body>

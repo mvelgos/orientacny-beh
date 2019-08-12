@@ -25,6 +25,10 @@ window.app = new Vue({
                 { label: "W6X", path: "/w6x", filter: "W6" },
                 { label: "W7X", path: "/w7x", filter: "W7" },
             ],
+            uxui: {
+                displayFirstNRacers: 3,
+
+            }
         },
         countdown: {
             interval: null,
@@ -48,7 +52,8 @@ window.app = new Vue({
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    self.racedata = self.parseCSVData(this.responseText, ";");
+                    let data = DataService.parseCSVData(this.responseText, ";");
+                    self.racedata = DataService.convert(data);
                     // use watch instead
                     // self.$router.push('/m3x');
                 }
@@ -56,46 +61,31 @@ window.app = new Vue({
             xhttp.open("GET", this.settings.ajax.url, true);
             xhttp.send();
         },
-        parseCSVData: function(strData, strDelimiter){
-            strDelimiter = (strDelimiter || ",");
-            var objPattern = new RegExp(("(\\" + strDelimiter + "|\\r?\\n|\\r|^)" + "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" + "([^\"\\" + strDelimiter + "\\r\\n]*))"), "gi");
-            var arrData = [[]];
-            var arrMatches = null;
-            while (arrMatches = objPattern.exec( strData )){
-                var strMatchedDelimiter = arrMatches[ 1 ];
-                if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter){
-                    arrData.push( [] );
-                }
-                var strMatchedValue;
-                if (arrMatches[ 2 ]){
-                    strMatchedValue = arrMatches[ 2 ].replace(new RegExp( "\"\"", "g" ), "\"");
-                } else {
-                    strMatchedValue = arrMatches[ 3 ];
-                }
-                arrData[ arrData.length - 1 ].push( strMatchedValue );
-            }
-            return arrData;
-        },
         getFilterByPath: function(path){
-            let filtered = this.settings.categories.filter(function(category){ return category.path === path });
+            let filtered = this.settings.categories.filter(function(category){
+                return category.path === path
+            });
             return filtered.length > 0 ? filtered[0].filter : '';
         },
         getFilteredCategories: function(filter){
-            let all = [];
-            let filtered = [];
-            for (index in this.racedata) {
-                if(all.indexOf(this.racedata[index][0]) === -1){
-                    all.push(this.racedata[index][0]);
+            let result = [];
+            for(let key in this.racedata.categories){
+                if(this.racedata.categories[key].name.indexOf(filter) !== -1){
+                    result.push(this.racedata.categories[key])
                 }
             }
-            filtered = all.filter(function(value){ return value.indexOf(filter) !== -1; });
-            return filtered;
+            return result;
         },
-        getResults: function(category){
+        getResults: function(category, start, end){
             let result = [];
-            for (index in this.racedata) {
-                if(this.racedata[index][0] === category){
-                    result.push(this.racedata[index]);
+            for (let index in this.racedata.results[category]) {
+                let shouldPush = false;
+                if(index >= start && index < end){
+                    shouldPush = true;
+                }
+
+                if(shouldPush){
+                    result.push(this.racedata.results[category][index]);
                 }
             }
             return result;

@@ -28,7 +28,7 @@
 #results-list .data-ranking {width: 25px; justify-content: flex-end; margin-right: 10px}
 #results-list .data-racer {flex-grow: 2;}
 #results-list .data-racer .data-name {font-size: 18px; font-weight: bold; margin-bottom: 5px}
-#results-list .data-racer .data-club {font-size: 14px}
+#results-list .data-racer .data-club {font-size: 14px; }
 #results-list .data-country {width: 50px; justify-content: center}
 #results-list .data-country > img {width: 50px}
 #results-list .data-time {width: 75px; justify-content: center}
