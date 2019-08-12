@@ -3,10 +3,11 @@
 /* page */
 
 /* widget */
-.widget { box-shadow: 1px 1px 5px 2px gainsboro; border-radius: 5px; margin: 10px; width: 100%; overflow: hidden }
-.widget > .header { padding: 10px }
+.widget { box-shadow: 1px 1px 5px 2px gainsboro; border-radius: 5px; margin: 10px; overflow: hidden }
+.widget > .header { margin: 10px }
 .widget > .header > h2 { font-size: 20px; font-weight: bold }
-.widget > .body { padding: 5px }
+.widget > .body { margin: 5px }
+.widget > .footer { margin: 5px; height: 200px; overflow: hidden }
 /* widget */
 
 /* progress-bar */
@@ -33,3 +34,15 @@
 #results-list .data-country > img {width: 50px}
 #results-list .data-time {width: 75px; justify-content: center}
 /* results-list */
+
+/* responsive */
+@media only screen and (min-width: 480px) {
+    .widget {width: 100%}
+}
+@media only screen and (min-width: 960px) {
+    .widget {width: 47.8%}
+}
+@media only screen and (min-width: 1280px) {
+    .widget {width: 31.7%;}
+}
+/* responsive */

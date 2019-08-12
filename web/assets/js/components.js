@@ -18,8 +18,74 @@ Vue.component('results-list', {
     }
 });
 
+Vue.component('scroll', {
+    // up-down for now
+    template: '<div class="scroll"><slot></slot></div>',
+    data: function(){
+        return {
+            animation: {
+                interval: null,
+                direction: "up"
+            },
+            viewHeight: 200,
+            childHeight: 0,
+            childCurrentPosition: 0
+        }
+    },
+    computed: {
+        maxScroll: function(){
+            return this.childHeight - this.viewHeight;
+        }
+    },
+    watch: {
+        childCurrentPosition: function(){
+            if(this.animation.direction === "up"){
+                if(this.childCurrentPosition > this.maxScroll){
+                    this.toggleDirection();
+                }
+            }
+            if(this.animation.direction === "down"){
+                if(this.childCurrentPosition < 0){
+                    this.toggleDirection();
+                }
+            }
+        }
+    },
+    methods: {
+        toggleDirection: function(){
+            this.animation.direction = this.animation.direction === 'up' ? 'down' : 'up';
+        }
+    },
+    mounted: function(){
+        var self = this;
+        setTimeout(function(){
+            self.childHeight = self.$children[0].$el.clientHeight;
+        }, 100);
+
+        this.animation.interval = setInterval(function(){
+            if(self.childHeight > self.viewHeight){
+                if(self.animation.direction === 'up'){
+                    self.childCurrentPosition += 1;
+                } else {
+                    self.childCurrentPosition -= 1;
+                }
+                self.$children[0].$el.style.marginTop = "-" + self.childCurrentPosition + "px";
+            } else {
+                clearInterval(self.animation.interval);
+            }
+        },100);
+    }
+});
+
+Vue.component('slider', {
+    template: '<div class="slider"><slot></slot></div>',
+    mounted: function(){
+        console.log('slider created');
+    }
+});
+
 Vue.component('widget', {
-    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer"><slot name="footer"></slot></div></div>'
+    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>'
 });
 
 Vue.component('page', {

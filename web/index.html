@@ -18,8 +18,11 @@
                         </template>
                         <template>
                             <results-list :items="getResults(category.slug, 0, settings.uxui.displayFirstNRacers)"></results-list>
-                            <div class="flex-break"></div>
-                            <results-list :items="getResults(category.slug, settings.uxui.displayFirstNRacers, 10000)"></results-list>
+                        </template>
+                        <template v-slot:footer>
+                            <scroll>
+                                <results-list :items="getResults(category.slug, settings.uxui.displayFirstNRacers, 10000)"></results-list>
+                            </scroll>
                         </template>
                     </widget>
                 </template>
