@@ -5,8 +5,8 @@ body { margin: 0; padding: 0; overflow: hidden }
 
 .fixed {position: fixed; left: 0; width: 100%;}
 
-#app > .header { top: 0; height: 25px }
-#app > .header > .content {padding: 5px}
-#app > .body {margin-top: 25px; overflow: hidden;}
-#app > .body > .content {padding: 10px}
+#app > .header { top: 0; background-color: red}
+#app > .header > .content {height: 50px}
+#app > .body {overflow: hidden; position: relative}
+#app > .body > .content {height: 100%}
 #app > .footer { bottom: 0;}

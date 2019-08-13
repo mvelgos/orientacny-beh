@@ -91,14 +91,17 @@ Vue.component('scroll', {
 });
 
 Vue.component('slider', {
-    template: '<div class="slider"><div class="content"><slot></slot></div></div>',
+    props: {
+        columns: Number
+    },
+    template: '<div class="slider"><div class="view"><div class="content"><slot></slot></div></div></div>',
     data: function(){
         return {
-            viewport: {
-                width: 0,
-                height: 0
-            }
+            items: 0
         }
+    },
+    methods: {
+
     },
     mounted: function(){
         console.log('slider created');

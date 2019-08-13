@@ -27,10 +27,7 @@ window.app = new Vue({
             },
             percentage: 0
         },
-        viewport: null,
-        widget: {
-            height: 0
-        }
+        viewport: null
     },
     computed: {
 
@@ -41,7 +38,6 @@ window.app = new Vue({
             this.countdownReset();
         },
         viewport: function(){
-            this.widget.height = DisplayService.appHeight().body;
         },
     },
     methods: {

@@ -83,11 +83,14 @@ const DisplayService = {
     appHeight: function(){
         let headerHeight = DisplayService.outerHeight(document.getElementById("app-header"));
         let footerHeight = DisplayService.outerHeight(document.getElementById("app-footer"));
-        return {
+        let result = {
             header: headerHeight,
-            body: window.innerHeight - (headerHeight + footerHeight),
+            body: window.innerHeight - (footerHeight),
             footer: footerHeight
         }
+        console.log(window.innerHeight);
+        console.log(result);
+        return result;
     }
 }
 

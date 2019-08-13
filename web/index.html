@@ -19,10 +19,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="body">
+            <div class="body" :style="{ height: DisplayService.appHeight().body+'px' }">
                 <div class="content">
                     <slider >
-                        <widget v-for="category in categories" :height="widget.height">
+                        <widget v-for="category in categories" :height="500">
                             <template v-slot:header>
                                 <h2>{{ category.name }}</h2>
                             </template>
