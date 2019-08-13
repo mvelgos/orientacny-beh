@@ -1,13 +1,9 @@
-/* page */
-.page > .body { padding: 10px; display: flex; flex-direction: row; flex-wrap: wrap }
-/* page */
-
 /* widget */
-.widget { box-shadow: 1px 1px 5px 2px gainsboro; border-radius: 5px; margin: 10px; overflow: hidden }
+.widget { box-shadow: 1px 1px 5px 2px gainsboro; border-radius: 5px; width: 100%; overflow: hidden; }
 .widget > .header { margin: 10px }
 .widget > .header > h2 { font-size: 20px; font-weight: bold }
 .widget > .body { margin: 5px }
-.widget > .footer { margin: 5px; height: 200px; overflow: hidden }
+.widget > .footer { margin: 5px; overflow: hidden; height: 550px }
 /* widget */
 
 /* progress-bar */
@@ -19,6 +15,7 @@
 .list {margin: 0; padding: 0; list-style-type: none; display: flex}
 .list-horizontal {flex-direction: row}
 .list-vertical {flex-direction: column}
+.list .spacer {flex-grow: 2}
 /* list */
 
 /* results-list */
@@ -28,21 +25,16 @@
 #results-list .data:last-child {margin-right: 0}
 #results-list .data-ranking {width: 25px; justify-content: flex-end; margin-right: 10px}
 #results-list .data-racer {flex-grow: 2;}
-#results-list .data-racer .data-name {font-size: 18px; font-weight: bold; margin-bottom: 5px}
-#results-list .data-racer .data-club {font-size: 14px; }
+#results-list .data-racer .data-name {font-size: 16px; font-weight: bold; }
+#results-list .data-racer .data-club {font-size: 14px; margin-top: 5px}
 #results-list .data-country {width: 50px; justify-content: center}
 #results-list .data-country > img {width: 50px}
 #results-list .data-time {width: 75px; justify-content: center}
 /* results-list */
 
-/* responsive */
-@media only screen and (min-width: 480px) {
-    .widget {width: 100%}
-}
-@media only screen and (min-width: 960px) {
-    .widget {width: 47.8%}
-}
-@media only screen and (min-width: 1280px) {
-    .widget {width: 31.7%;}
-}
-/* responsive */
+/* slider */
+.slider {display: block; width: 100%; overflow: hidden;}
+.slider > .content {display: block; padding: 5px; white-space: nowrap; position: relative;}
+.slider > .content > .widget {margin-right: 10px; width: calc(100% /3); display: inline-block}
+.slider > .content > .widget:last-child {margin-right: 0}
+/* slider */

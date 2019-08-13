@@ -60,3 +60,45 @@ const DataService = {
         return arrData;
     }
 }
+
+const DisplayService = {
+    outerWidth: function(el){
+        let width = el.offsetWidth;
+        let style = getComputedStyle(el);
+        width += parseInt(style.marginLeft) + parseInt(style.marginRight);
+        return width;
+    },
+    outerHeight: function(el){
+        let height = el.offsetHeight;
+        let style = getComputedStyle(el);
+        height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+        return height;
+    },
+    windowViewport: function(){
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
+    },
+    appHeight: function(){
+        let headerHeight = DisplayService.outerHeight(document.getElementById("app-header"));
+        let footerHeight = DisplayService.outerHeight(document.getElementById("app-footer"));
+        return {
+            header: headerHeight,
+            body: window.innerHeight - (headerHeight + footerHeight),
+            footer: footerHeight
+        }
+    }
+}
+
+const StorageService = {
+    set: function(name, value){
+        localStorage.setItem(name, value);
+    },
+    get: function(name){
+        return localStorage.getItem(name);
+    },
+    contains: function(name){
+        return !!localStorage.getItem(name)
+    }
+}

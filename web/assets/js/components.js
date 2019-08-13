@@ -6,8 +6,9 @@ Vue.component('progress-bar', {
 Vue.component('results-list', {
     props: {
         items: Array,
+        settings: Object
     },
-    template: '<ul id="results-list" class="list list-vertical"><li v-for="item in items" class="item"><ul class="list list-horizontal"><li class="data data-ranking">{{ item.ranking }}</li><li class="data data-racer"> <ul class="list list-vertical"><li class="data data-name">{{ item.racer.name }}</li><li class="data data-club">{{ item.racer.club }}</li></ul> </li><li class="data data-country" v-if="hasFlag(item.racer.country)"><img :src="getFlag(item.racer.country)" alt="flag"></li><li class="data data-country" v-else>{{ item.racer.country }}</li><li class="data data-time time-total">{{ item.time.total }}</li><li class="data data-time time-diff">{{ item.time.diff }}</li></ul></li></ul>',
+    template: '<ul id="results-list" class="list list-vertical"><li v-for="item in items" class="item"><ul class="list list-horizontal"><li class="data data-ranking">{{ item.ranking }}</li><li class="data data-racer"> <ul class="list list-vertical"><li class="data data-name">{{ item.racer.name }}</li><li class="data data-club" v-if="settings.displayClub">{{ item.racer.club }}</li></ul> </li><li class="data data-country" v-if="settings.displayCountry"><img v-if="hasFlag(item.racer.country)" :src="getFlag(item.racer.country)" alt="flag"> <span v-else class="text">{{ item.racer.country }}</span></li><li class="data data-time time-total">{{ item.time.total }}</li><li class="data data-time time-diff">{{ item.time.diff }}</li></ul></li></ul>',
     methods: {
         hasFlag: function(iso3code){
             return flags.hasOwnProperty(iso3code.toLowerCase());
@@ -54,13 +55,25 @@ Vue.component('scroll', {
     methods: {
         toggleDirection: function(){
             this.animation.direction = this.animation.direction === 'up' ? 'down' : 'up';
+        },
+        determineChildHeight: function(){
+            this.childHeight = this.$children[0].$el.clientHeight;
+        },
+        determineParentHeight: function(){
+            this.viewHeight = this.$parent.$el.children[2].clientHeight
         }
+        // resetScroll
     },
     mounted: function(){
         var self = this;
         setTimeout(function(){
-            self.childHeight = self.$children[0].$el.clientHeight;
+            self.determineChildHeight();
+            self.determineParentHeight();
         }, 100);
+        window.onresize = function(){
+            self.determineChildHeight();
+            self.determineParentHeight();
+        }
 
         this.animation.interval = setInterval(function(){
             if(self.childHeight > self.viewHeight){
@@ -78,16 +91,29 @@ Vue.component('scroll', {
 });
 
 Vue.component('slider', {
-    template: '<div class="slider"><slot></slot></div>',
+    template: '<div class="slider"><div class="content"><slot></slot></div></div>',
+    data: function(){
+        return {
+            viewport: {
+                width: 0,
+                height: 0
+            }
+        }
+    },
     mounted: function(){
         console.log('slider created');
     }
 });
 
 Vue.component('widget', {
-    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>'
-});
+    props: { height: Number },
+    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>',
+    methods: {
+        footerHeight: function(){
 
-Vue.component('page', {
-    template: '<div class="page"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer"><slot name="footer"></slot></div></div>',
+        }
+    },
+    mounted: function(){
+        console.log(this.height);
+    }
 });
