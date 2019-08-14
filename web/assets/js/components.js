@@ -8,7 +8,7 @@ Vue.component('results-list', {
         items: Array,
         settings: Object
     },
-    template: '<ul id="results-list" class="list list-vertical"><li v-for="item in items" class="item"><ul class="list list-horizontal"><li class="data data-ranking">{{ item.ranking }}</li><li class="data data-racer"> <ul class="list list-vertical"><li class="data data-name">{{ item.racer.name }}</li><li class="data data-club" v-if="settings.displayClub">{{ item.racer.club }}</li></ul> </li><li class="data data-country" v-if="settings.displayCountry"><img v-if="hasFlag(item.racer.country)" :src="getFlag(item.racer.country)" alt="flag"> <span v-else class="text">{{ item.racer.country }}</span></li><li class="data data-time time-total">{{ item.time.total }}</li><li class="data data-time time-diff">{{ item.time.diff }}</li></ul></li></ul>',
+    template: '<ul id="results-list" class="list layout layout-vertical"><li v-for="item in items" class="item"><ul class="list layout layout-horizontal"><li class="data data-ranking">{{ item.ranking }}</li><li class="data data-racer"> <ul class="list layout layout-vertical"><li class="data data-name">{{ item.racer.name }}</li><li class="data data-club" v-if="settings.displayClub">{{ item.racer.club }}</li></ul> </li><li class="data data-country" v-if="settings.displayCountry"><img v-if="hasFlag(item.racer.country)" :src="getFlag(item.racer.country)" alt="flag"> <span v-else class="text">{{ item.racer.country }}</span></li><li class="data data-time time-total">{{ item.time.total }}</li><li class="data data-time time-diff">{{ item.time.diff }}</li></ul></li></ul>',
     methods: {
         hasFlag: function(iso3code){
             return flags.hasOwnProperty(iso3code.toLowerCase());
@@ -70,10 +70,10 @@ Vue.component('scroll', {
             self.determineChildHeight();
             self.determineParentHeight();
         }, 100);
-        window.onresize = function(){
+        window.addEventListener('resize', function(){
             self.determineChildHeight();
             self.determineParentHeight();
-        }
+        });
 
         this.animation.interval = setInterval(function(){
             if(self.childHeight > self.viewHeight){
@@ -108,15 +108,24 @@ Vue.component('slider', {
     }
 });
 
-Vue.component('widget', {
-    props: { height: Number },
-    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>',
-    methods: {
-        footerHeight: function(){
+Vue.component('grid', {
+    template: '<div class="grid"><div class="view"><div class="content"><slot></slot></div></div></div>'
+});
 
+Vue.component('widget', {
+    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>',
+    data: function(){
+        return {
+            height: 0
         }
     },
+    watch: {
+        height: function(){ console.log(this.height); }
+    },
+    methods: {
+
+    },
     mounted: function(){
-        console.log(this.height);
+
     }
 });

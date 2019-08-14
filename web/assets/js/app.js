@@ -29,16 +29,13 @@ window.app = new Vue({
         },
         viewport: null
     },
-    computed: {
-
-    },
+    computed: {},
     watch: {
         racedata: function(){
             this.categories = this.getCategories(this.$route.query.categories);
             this.countdownReset();
         },
-        viewport: function(){
-        },
+        viewport: function(){},
     },
     methods: {
         loadData: function(){
@@ -92,7 +89,6 @@ window.app = new Vue({
     },
     created: function() {
         // check storage for stored settings
-
         var self = this;
         self.loadData();
         setTimeout(function(){

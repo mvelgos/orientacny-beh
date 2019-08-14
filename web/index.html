@@ -10,40 +10,73 @@
     </head>
     <body>
         <div id="app">
-            <div id="app-header" class="header fixed">
-                <div class="content">
-                    <ul class="list list-horizontal">
-                        <li><!-- logo --></li>
-                        <li class="spacer"></li>
-                        <li><!-- settings button --></li>
-                    </ul>
+            <div class="container layout layout-vertical">
+                <!-- header -->
+                <div class="header">
+                    <div class="content">
+                        <ul class="list layout layout-horizontal">
+                            <li><!-- logo --></li>
+                            <li class="spacer"></li>
+                            <li><!-- settings button --></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="body" :style="{ height: DisplayService.appHeight().body+'px' }">
-                <div class="content">
-                    <slider >
-                        <widget v-for="category in categories" :height="500">
-                            <template v-slot:header>
-                                <h2>{{ category.name }}</h2>
-                            </template>
-                            <template>
-                                <results-list :items="getResults(category.slug, 0, settings.results.staticPlacesCount)" :settings="settings.results"></results-list>
-                            </template>
-                            <template v-slot:footer>
-                                <scroll>
-                                    <results-list :items="getResults(category.slug, settings.results.staticPlacesCount, 10000)" :settings="settings.results"></results-list>
-                                </scroll>
-                            </template>
-                        </widget>
-                    </slider>
+                <!-- header -->
+
+                <!-- body -->
+                <div class="body" :style="{ height: DisplayService.appHeight().body+'px' }">
+                    <!-- less than 3 categories -->
+                    <div class="content" v-if="categories.length < 3">
+                        <grid>
+                            <widget v-for="category in categories">
+                                <template v-slot:header>
+                                    <h2>{{ category.name }}</h2>
+                                </template>
+                                <template>
+                                    <results-list :items="getResults(category.slug, 0, settings.results.staticPlacesCount)" :settings="settings.results"></results-list>
+                                </template>
+                                <template v-slot:footer>
+                                    <scroll>
+                                        <results-list :items="getResults(category.slug, settings.results.staticPlacesCount, 10000)" :settings="settings.results"></results-list>
+                                    </scroll>
+                                </template>
+                            </widget>
+                        </grid>
+                    </div>
+                    <!-- less than 3 categories -->
+
+                    <!-- more than 3 categories -->
+                    <div class="content" v-if="categories.length > 3">
+                        <slider>
+                            <widget v-for="category in categories">
+                                <template v-slot:header>
+                                    <h2>{{ category.name }}</h2>
+                                </template>
+                                <template>
+                                    <results-list :items="getResults(category.slug, 0, settings.results.staticPlacesCount)" :settings="settings.results"></results-list>
+                                </template>
+                                <template v-slot:footer>
+                                    <scroll>
+                                        <results-list :items="getResults(category.slug, settings.results.staticPlacesCount, 10000)" :settings="settings.results"></results-list>
+                                    </scroll>
+                                </template>
+                            </widget>
+                        </slider>
+                    </div>
+                    <!-- more than 3 categories -->
                 </div>
-            </div>
-            <div id="app-footer" class="footer fixed">
-                <div class="content">
-                    <progress-bar :percentage="countdown.percentage"></progress-bar>
+                <!-- body -->
+
+                <!-- footer -->
+                <div class="footer">
+                    <div class="content">
+                        <progress-bar :percentage="countdown.percentage"></progress-bar>
+                    </div>
                 </div>
+                <!-- footer -->
             </div>
         </div>
+
         <script type="text/javascript" src="assets/js/vendor.js"></script>
         <script type="text/javascript" src="assets/js/flags.js"></script>
         <script type="text/javascript" src="assets/js/services.js"></script>

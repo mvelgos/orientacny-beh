@@ -3,10 +3,5 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 html { font-family: Verdana, Geneva, Tahoma, sans-serif }
 body { margin: 0; padding: 0; overflow: hidden }
 
-.fixed {position: fixed; left: 0; width: 100%;}
-
-#app > .header { top: 0; background-color: red}
-#app > .header > .content {height: 50px}
-#app > .body {overflow: hidden; position: relative}
-#app > .body > .content {height: 100%}
-#app > .footer { bottom: 0;}
+#app {overflow: hidden;}
+#app > .container > .body {overflow: hidden; flex-grow: 2;}

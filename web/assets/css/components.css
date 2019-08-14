@@ -1,9 +1,16 @@
+/* layout */
+.layout {display: flex}
+.layout-horizontal {flex-direction: row}
+.layout-vertical {flex-direction: column}
+.layout .spacer {flex-grow: 2}
+/* layout */
+
 /* widget */
 .widget { box-shadow: 1px 1px 5px 2px gainsboro; border-radius: 5px; width: 100%; overflow: hidden; background-color: white }
 .widget > .header { margin: 10px }
 .widget > .header > h2 { font-size: 20px; font-weight: bold }
 .widget > .body { margin: 5px }
-.widget > .footer { margin: 5px; overflow: hidden; height: 550px }
+.widget > .footer { margin: 5px; overflow: hidden; }
 /* widget */
 
 /* progress-bar */
@@ -12,10 +19,7 @@
 /* progress-bar */
 
 /* list */
-.list {margin: 0; padding: 0; list-style-type: none; display: flex}
-.list-horizontal {flex-direction: row}
-.list-vertical {flex-direction: column}
-.list .spacer {flex-grow: 2}
+.list {margin: 0; padding: 0; list-style-type: none;}
 /* list */
 
 /* results-list */
@@ -39,3 +43,11 @@
 .slider > .view > .content > .widget {margin-right: 1%; width: 30%; display: inline-block}
 .slider > .view > .content > .widget:last-child {margin-right: 0}
 /* slider */
+
+/* grid */
+.grid {display: block; width: 100%; height: 100%; overflow: hidden;}
+.grid > .view {display: block; position: relative; padding: 5px}
+.grid > .view > .content {}
+/* .grid > .view > .content > .widget {margin-right: 10px; width: 100%;}
+.grid > .view > .content > .widget:last-child {margin-right: 0} */
+/* grid */

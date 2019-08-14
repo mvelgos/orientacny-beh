@@ -63,16 +63,26 @@ const DataService = {
 
 const DisplayService = {
     outerWidth: function(el){
-        let width = el.offsetWidth;
-        let style = getComputedStyle(el);
-        width += parseInt(style.marginLeft) + parseInt(style.marginRight);
-        return width;
+        return el.offsetWidth + DisplayService.getHorizontalMargin(el);
     },
     outerHeight: function(el){
-        let height = el.offsetHeight;
+        return el.offsetHeight + DisplayService.getVerticalMargin(el);
+    },
+    getVerticalPadding: function(el, ){
         let style = getComputedStyle(el);
-        height += parseInt(style.marginTop) + parseInt(style.marginBottom);
-        return height;
+        return parseInt(style.paddingTop) + parseInt(style.paddingBottom);
+    },
+    getHorizontalPadding: function(el){
+        let style = getComputedStyle(el);
+        return parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+    },
+    getVerticalMargin: function(el){
+        let style = getComputedStyle(el);
+        return parseInt(style.marginTop) + parseInt(style.marginBottom);
+    },
+    getHorizontalMargin: function(el){
+        let style = getComputedStyle(el);
+        return parseInt(style.marginLeft) + parseInt(style.marginRight);
     },
     windowViewport: function(){
         return {
@@ -81,16 +91,20 @@ const DisplayService = {
         }
     },
     appHeight: function(){
-        let headerHeight = DisplayService.outerHeight(document.getElementById("app-header"));
-        let footerHeight = DisplayService.outerHeight(document.getElementById("app-footer"));
+        let headerHeight = DisplayService.outerHeight(document.querySelector("#app > .container > .header"));
+        let footerHeight = DisplayService.outerHeight(document.querySelector("#app > .container > .footer"));
         let result = {
             header: headerHeight,
-            body: window.innerHeight - (footerHeight),
+            body: window.innerHeight - (headerHeight + footerHeight),
             footer: footerHeight
         }
-        console.log(window.innerHeight);
-        console.log(result);
         return result;
+    },
+    widgetHeight: function(){
+        let bodyHeight = DisplayService.appHeight().body;
+        let container = document.querySelector("#app-body > .content");
+        let containerPadding = DisplayService.getVerticalPadding(container);
+        return bodyHeight - containerPadding;
     }
 }
 
