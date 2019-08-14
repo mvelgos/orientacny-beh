@@ -23,7 +23,7 @@
 /* list */
 
 /* results-list */
-#results-list {width: 100%}
+#results-list {width: 100%; overflow: hidden;}
 #results-list > .item:nth-child(2n+1) {background-color: gainsboro}
 #results-list .data {margin-right: 5px; display: flex; align-items: center;}
 #results-list .data:last-child {margin-right: 0}
@@ -47,7 +47,7 @@
 /* grid */
 .grid {display: block; width: 100%; height: 100%; overflow: hidden;}
 .grid > .view {display: block; position: relative; padding: 5px}
-.grid > .view > .content {}
-/* .grid > .view > .content > .widget {margin-right: 10px; width: 100%;}
-.grid > .view > .content > .widget:last-child {margin-right: 0} */
+.grid > .view > .content {display: flex;}
+.grid > .view > .content > .widget {margin-right: 10px; width: 100%;}
+.grid > .view > .content > .widget:last-child {margin-right: 0}
 /* grid */

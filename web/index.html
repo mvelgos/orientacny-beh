@@ -26,7 +26,7 @@
                 <!-- body -->
                 <div class="body" :style="{ height: DisplayService.appHeight().body+'px' }">
                     <!-- less than 3 categories -->
-                    <div class="content" v-if="categories.length < 3">
+                    <div class="content" v-if="categories.length <= 3">
                         <grid>
                             <widget v-for="category in categories">
                                 <template v-slot:header>
