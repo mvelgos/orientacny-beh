@@ -100,12 +100,8 @@ Vue.component('slider', {
             items: 0
         }
     },
-    methods: {
-
-    },
-    mounted: function(){
-        console.log('slider created');
-    }
+    methods: {},
+    mounted: function(){ console.log('slider created');}
 });
 
 Vue.component('grid', {
@@ -113,23 +109,5 @@ Vue.component('grid', {
 });
 
 Vue.component('widget', {
-    template: '<div class="widget" :style="{ height: this.height+\'px\'}"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>',
-    data: function(){
-        return {
-            height: 0
-        }
-    },
-    watch: {
-        height: function(){ console.log(this.height); }
-    },
-    methods: {
-
-    },
-    mounted: function(){
-        this.height = DisplayService.widgetHeight();
-        var self = this;
-        window.addEventListener('resize', function(){
-            self.height = DisplayService.widgetHeight();
-        });
-    }
+    template: '<div class="widget"><div class="header"><slot name="header"></slot></div><div class="body"><slot></slot></div><div class="footer" v-if="!!this.$slots.footer"><slot name="footer"></slot></div></div>',
 });

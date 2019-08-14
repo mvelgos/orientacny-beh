@@ -26,16 +26,14 @@ window.app = new Vue({
                 next: null
             },
             percentage: 0
-        },
-        viewport: null
+        }
     },
     computed: {},
     watch: {
         racedata: function(){
-            this.categories = this.getCategories(this.$route.query.categories);
+            this.categories = this.getCategories(this.$route.query.category);
             this.countdownReset();
         },
-        viewport: function(){},
     },
     methods: {
         loadData: function(){
@@ -103,9 +101,6 @@ window.app = new Vue({
         }, 1000);
     },
     mounted: function() {
-        this.viewport = DisplayService.windowViewport();
-        window.addEventListener('resize', function(e){
-            window.app.viewport = DisplayService.windowViewport();
-        });
+        
     }
 }).$mount('#app');
