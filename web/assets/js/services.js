@@ -102,7 +102,7 @@ const DisplayService = {
     },
     widgetHeight: function(){
         let bodyHeight = DisplayService.appHeight().body;
-        let container = document.querySelector("#app-body > .content");
+        let container = document.querySelector(".view");
         let containerPadding = DisplayService.getVerticalPadding(container);
         return bodyHeight - containerPadding;
     }
