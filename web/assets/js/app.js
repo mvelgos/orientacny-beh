@@ -31,18 +31,24 @@ window.app = new Vue({
     computed: {},
     watch: {
         racedata: function(){
-            this.categories = this.getCategories(this.$route.query.category);
+            // let categories = this.getCategories(this.$route.query.category);
+            // if(JSON.stringify(this.categories) !== JSON.stringify(categories)){
+            //     this.categories = categories;
+            // }
             this.countdownReset();
         },
     },
     methods: {
-        loadData: function(){
+        loadData: function(firstCall){
             var self = this;
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     let data = DataService.parseCSVData(this.responseText, ";");
                     self.racedata = DataService.convert(data);
+                    if(firstCall){
+                        self.categories = self.getCategories(self.$route.query.category)
+                    }
                 }
             };
             xhttp.open("GET", this.settings.ajax.url, true);
@@ -94,10 +100,10 @@ window.app = new Vue({
     created: function() {
         // check storage for stored settings
         var self = this;
-        self.loadData();
+        self.loadData(true);
         setTimeout(function(){
             setInterval(function(){
-                self.loadData();
+                self.loadData(false);
             }, self.settings.ajax.interval);
         }, self.settings.ajax.timeout);
 
