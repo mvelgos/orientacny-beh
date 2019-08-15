@@ -47,7 +47,7 @@
 
                     <!-- more than 3 categories -->
                     <div class="content" v-if="categories.length > 3">
-                        <slider>
+                        <slider timeout="10000" v-on:slide="categoryRotate()">
                             <widget v-for="category in categories">
                                 <template v-slot:header>
                                     <h2>{{ category.name }}</h2>

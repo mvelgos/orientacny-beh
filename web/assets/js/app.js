@@ -55,10 +55,13 @@ window.app = new Vue({
                     result.push(this.racedata.categories[key])
                 }
             } else {
-                for(let key in this.racedata.categories){
-                    let category = this.racedata.categories[key];
-                    if(categories.indexOf(category.slug) !== -1){
-                        result.push(this.racedata.categories[key])
+                for(let index in categories){
+                    let categorySlug = categories[index];
+                    for(let key in this.racedata.categories){
+                        let category = this.racedata.categories[key];
+                        if(categorySlug === category.slug){
+                            result.push(category);
+                        }
                     }
                 }
             }
@@ -83,6 +86,9 @@ window.app = new Vue({
             let diffSeconds = parseInt((this.countdown.value.next.getTime() - this.countdown.value.now.getTime()) / 1000);
             let percentage = parseInt(100 - (100 * diffSeconds / (this.settings.ajax.interval / 1000)));
             this.countdown.percentage = percentage;
+        },
+        categoryRotate: function(){
+            this.categories.push(this.categories.shift());
         }
     },
     created: function() {
@@ -101,6 +107,6 @@ window.app = new Vue({
         }, 1000);
     },
     mounted: function() {
-        
+
     }
 }).$mount('#app');

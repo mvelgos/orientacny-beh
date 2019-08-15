@@ -92,16 +92,15 @@ Vue.component('scroll', {
 
 Vue.component('slider', {
     props: {
-        columns: Number
+        timeout: Number
     },
     template: '<div class="slider"><div class="view"><div class="content"><slot></slot></div></div></div>',
-    data: function(){
-        return {
-            items: 0
-        }
-    },
-    methods: {},
-    mounted: function(){ console.log('slider created');}
+    mounted: function(){
+        var self = this;
+        setInterval(function(){
+            self.$emit('slide', { direction: 'right'});
+        }, this.timeout);
+    }
 });
 
 Vue.component('grid', {
