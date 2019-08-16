@@ -24,6 +24,7 @@
 
 /* results-list */
 #results-list {width: 100%; overflow: hidden;}
+#results-list > .item {padding: 3px}
 #results-list > .item:nth-child(2n+1) {background-color: gainsboro}
 #results-list .data {margin-right: 5px; display: flex; align-items: center;}
 #results-list .data:last-child {margin-right: 0}

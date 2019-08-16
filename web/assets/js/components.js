@@ -8,13 +8,16 @@ Vue.component('results-list', {
         items: Array,
         settings: Object
     },
-    template: '<ul id="results-list" class="list layout layout-vertical"><li v-for="item in items" class="item"><ul class="list layout layout-horizontal"><li class="data data-ranking">{{ item.ranking }}</li><li class="data data-racer"> <ul class="list layout layout-vertical"><li class="data data-name">{{ item.racer.name }}</li><li class="data data-club" v-if="settings.displayClub">{{ item.racer.club }}</li></ul> </li><li class="data data-country" v-if="settings.displayCountry"><img v-if="hasFlag(item.racer.country)" :src="getFlag(item.racer.country)" alt="flag"> <span v-else class="text">{{ item.racer.country }}</span></li><li class="data data-time time-total">{{ item.time.total }}</li><li class="data data-time time-diff">{{ item.time.diff }}</li></ul></li></ul>',
+    template: '<ul id="results-list" class="list layout layout-vertical"><li v-for="item in items" class="item"><ul class="list layout layout-horizontal"><li class="data data-ranking">{{ item.ranking }}</li><li class="data data-racer"> <ul class="list layout layout-vertical"><li class="data data-name">{{ item.racer.name }}</li><li class="data data-club" v-if="settings.displayClub">{{ item.racer.club }}</li></ul> </li><li class="data data-country" v-if="settings.displayCountry"><img v-if="hasFlag(item.racer.country)" :src="getFlag(item.racer.country)" alt="flag" :style="{ width: getFlagWidth()}"> <span v-else class="text">{{ item.racer.country }}</span></li><li class="data data-time time-total">{{ item.time.total }}</li><li class="data data-time time-diff">{{ item.time.diff }}</li></ul></li></ul>',
     methods: {
         hasFlag: function(iso3code){
             return flags.hasOwnProperty(iso3code.toLowerCase());
         },
         getFlag: function(iso3code){
             return flags[iso3code.toLowerCase()];
+        },
+        getFlagWidth: function(){
+            return this.settings.displayClub ? "50px" : "25px";
         }
     }
 });
