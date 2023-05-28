@@ -68,6 +68,14 @@ window.app = new Vue({
                 for(let key in this.racedata.categories){
                     result.push(this.racedata.categories[key])
                 }
+            } else if (typeof categories === "string") {
+                let categorySlug = categories;
+                for(let key in this.racedata.categories){
+                    let category = this.racedata.categories[key];
+                    if(categorySlug === category.slug){
+                        result.push(category);
+                    }
+                }
             } else {
                 for(let index in categories){
                     let categorySlug = categories[index];
