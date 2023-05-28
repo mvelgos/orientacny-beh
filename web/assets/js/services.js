@@ -1,4 +1,4 @@
-const DataService = {
+const CSVDataService = {
     convert: function( data ){
         let result = {
             categories: [],
@@ -19,7 +19,7 @@ const DataService = {
                 result.results[category.slug] = [];
             }
 
-            result.results[category.slug].push( DataService.convertItem(item) );
+            result.results[category.slug].push( CSVDataService.convertItem(item) );
         }
         return result;
     },
@@ -39,7 +39,7 @@ const DataService = {
             }
         };
     },
-    parseCSVData: function(strData, strDelimiter){
+    parse: function(strData, strDelimiter){
         strDelimiter = (strDelimiter || ",");
         var objPattern = new RegExp(("(\\" + strDelimiter + "|\\r?\\n|\\r|^)" + "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" + "([^\"\\" + strDelimiter + "\\r\\n]*))"), "gi");
         var arrData = [[]];
@@ -58,6 +58,52 @@ const DataService = {
             arrData[ arrData.length - 1 ].push( strMatchedValue );
         }
         return arrData;
+    }
+}
+
+const JSONDataService = {
+    convert: function( data ){
+        let result = {
+            categories: [],
+            results: []
+        };
+
+        for(let index in data){
+            let item = data[index];
+            let category = {
+                name: item.category,
+                slug: item.category.toLowerCase()
+            };
+
+            if(!result.categories.hasOwnProperty(category.slug)){
+                result.categories[category.slug] = category;
+            }
+            if(!result.results.hasOwnProperty(category.slug)){
+                result.results[category.slug] = [];
+            }
+
+            result.results[category.slug].push( JSONDataService.convertItem(item) );
+        }
+        return result;
+    },
+    convertItem: function( item ){
+        let club = typeof item.club !== "undefined" && item.club !== null ? item.club : '-';
+
+        return {
+            ranking:        typeof item.pos !== "undefined" ? item.pos: '-',
+            racer: {
+                name:       typeof item.competitor !== "undefined" ? item.competitor : '-',
+                club:       club.length > 20 ? club.substr(0, 20) + " ..." : club,
+                country:    typeof item.country !== "undefined" ? item.country : '-'
+            },
+            time: {
+                total:      typeof item.totaltime !== "undefined" ? item.totaltime : '-',
+                diff:       typeof item.behind !== "undefined" ? item.behind : '-'
+            }
+        };
+    },
+    parse: function(strData){
+        return JSON.parse(strData);
     }
 }
 

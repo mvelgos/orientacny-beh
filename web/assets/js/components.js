@@ -21,14 +21,15 @@ Vue.component('results-list', {
 
 Vue.component('scroll', {
     // up-down for now
-    template: '<div class="scroll"><slot></slot></div>',
+    template: '<div :id="uuid" class="scroll"><slot></slot></div>',
     data: function(){
         return {
+            uuid: null,
             animation: {
                 interval: null,
                 direction: "up"
             },
-            viewHeight: 200,
+            viewHeight: 0,
             childHeight: 0,
             childCurrentPosition: 0
         }
@@ -64,6 +65,9 @@ Vue.component('scroll', {
         }
         // resetScroll
     },
+    created: function(){
+        this.uuid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+    },
     mounted: function(){
         var self = this;
         setTimeout(function(){
@@ -76,6 +80,7 @@ Vue.component('scroll', {
         });
 
         this.animation.interval = setInterval(function(){
+            
             if(self.childHeight > self.viewHeight){
                 if(self.animation.direction === 'up'){
                     self.childCurrentPosition += 1;

@@ -9,7 +9,8 @@ window.app = new Vue({
         categories: [],
         settings: {
             ajax: {
-                url: "https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.data.csv",
+                // url: "https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.data.csv",
+                url: "https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.export.json",
                 interval: 30000,
                 timeout: 0
             },
@@ -44,8 +45,15 @@ window.app = new Vue({
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    let data = DataService.parseCSVData(this.responseText, ";");
-                    self.racedata = DataService.convert(data);
+                    /* EXPORT IS A CSV */
+                    // let data = CSVDataService.parse(this.responseText, ";");
+                    // self.racedata = CSVDataService.convert(data);
+                    /* EXPORT IS A CSV */
+
+                    /* EXPORT IS A JSON */
+                    let data = JSONDataService.parse(this.responseText);
+                    self.racedata = JSONDataService.convert(data);
+                    /* EXPORT IS A JSON */
                     if(firstCall){
                         self.categories = self.getCategories(self.$route.query.category)
                     }
