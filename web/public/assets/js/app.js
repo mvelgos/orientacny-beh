@@ -9,8 +9,7 @@ window.app = new Vue({
         categories: [],
         settings: {
             ajax: {
-                // url: "https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.data.csv",
-                url: "https://raw.githubusercontent.com/bletvaska/orientacny-beh/master/data/example.export.json",
+                url: "http://localhost:8080/api/data",
                 interval: 30000,
                 timeout: 0
             },
