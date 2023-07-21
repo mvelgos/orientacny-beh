@@ -1,4 +1,5 @@
-const mysql = require('mysql2');
+const { Client } = require("pg");
 const config = require('./config/config');
+const postgresql = new Client(config.credentials);
 
-module.exports = mysql.createConnection(config.mysql)
+module.exports = postgresql.connect();

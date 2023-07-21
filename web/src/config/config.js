@@ -8,10 +8,10 @@ const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
     PORT: Joi.number().default(3000),
-    DB_HOST: Joi.string().required().description('MYSQL DB host'),
-    DB_USER: Joi.string().required().description('MYSQL DB user'),
-    DB_PASSWORD: Joi.string().required().description('MYSQL DB password'),
-    DB_DATABASE: Joi.string().required().description('MYSQL DB database'),
+    DB_HOST: Joi.string().required().description('PostgreSql DB host'),
+    DB_USER: Joi.string().required().description('PostgreSql DB user'),
+    DB_PASSWORD: Joi.string().required().description('PostgreSql DB password'),
+    DB_DATABASE: Joi.string().required().description('PostgreSql DB database'),
     RACE_CATEGORIES: Joi.string().required().description('Race categories'),
     RACE_ID: Joi.string().required().description('Race ID'),
     RACE_STAGE_ID: Joi.string().required().description('Race Stage ID'),
@@ -27,11 +27,12 @@ if (error) {
 module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
-  mysql: {
+  credentials: {
     host: envVars.DB_HOST,
     user: envVars.DB_USER,
     password: envVars.DB_PASSWORD,
     database: envVars.DB_DATABASE,
+    port: 5432,
   },
   race: {
     id: envVars.RACE_ID,

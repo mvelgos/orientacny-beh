@@ -66,7 +66,7 @@ Vue.component('scroll', {
         determineParentHeight: function(){
             this.viewHeight = this.$parent.$el.children[2].clientHeight
         }
-        // resetScroll
+        //resetScroll
     },
     created: function(){
         this.uuid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -86,9 +86,9 @@ Vue.component('scroll', {
             
             if(self.childHeight > self.viewHeight){
                 if(self.animation.direction === 'up'){
-                    self.childCurrentPosition += 1;
+                    self.childCurrentPosition += 5;
                 } else {
-                    self.childCurrentPosition -= 1;
+                    self.childCurrentPosition -= 5;
                 }
                 self.$children[0].$el.style.marginTop = "-" + self.childCurrentPosition + "px";
             } else {

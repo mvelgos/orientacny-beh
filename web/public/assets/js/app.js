@@ -15,7 +15,7 @@ window.app = new Vue({
             },
             results: {
                 staticPlacesCount: 3,
-                displayClub: true,
+                displayClub: false,
                 displayCountry: true
             }
         },
