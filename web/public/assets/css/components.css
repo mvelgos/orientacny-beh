@@ -7,7 +7,7 @@
 
 /* widget */
 .widget { box-shadow: 1px 1px 5px 2px gainsboro; border-radius: 5px; width: 100%; overflow: hidden; background-color: white; display: flex; flex-direction: column }
-.widget > .header { margin: 10px; flex-shrink: 0 }
+.widget > .header { margin: 5px; flex-shrink: 0 }
 .widget > .header > h2 { font-size: 20px; font-weight: bold }
 .widget > .body { margin: 5px; flex-shrink: 0 }
 .widget > .footer { margin: 5px; overflow: hidden; flex-basis: 100% }
@@ -15,7 +15,7 @@
 
 /* progress-bar */
 .progress.progress-bar { width: 100%; }
-.progress.progress-bar > .bar { height: 10px; background-color: #0000fe; content: "&nbsp";}
+.progress.progress-bar > .bar { height: 8px; background-color: #0000fe; content: "&nbsp";}
 /* progress-bar */
 
 /* list */
@@ -24,23 +24,23 @@
 
 /* results-list */
 #results-list {width: 100%; overflow: hidden;}
-#results-list > .item {padding: 3px}
+#results-list > .item {padding: 2px}
 #results-list > .item:nth-child(2n+1) {background-color: gainsboro}
-#results-list .data {margin-right: 5px; display: flex; align-items: center;}
+#results-list .data {margin-right: 2px; display: flex; align-items: center;}
 #results-list .data:last-child {margin-right: 0}
-#results-list .data-ranking {width: 25px; justify-content: flex-end; margin-right: 10px}
+#results-list .data-ranking {width: 25px; justify-content: flex-end; margin-right: 5px}
 #results-list .data-racer {flex-grow: 2;}
 #results-list .data-racer .data-name {font-size: 16px; font-weight: bold; }
 #results-list .data-racer .data-club {font-size: 14px; margin-top: 5px}
-#results-list .data-country {width: 50px; justify-content: center}
-#results-list .data-country > img {width: 50px}
-#results-list .data-time {width: 75px; justify-content: center}
+#results-list .data-country {width: 45px; justify-content: center}
+#results-list .data-country > img {width: 45px}
+#results-list .data-time {width: 70px; justify-content: center}
 /* results-list */
 
 /* slider */
 .slider {display: block; height: 100%; overflow: hidden; }
 .slider > .view {display: block; position: relative; height: 100%}
-.slider > .view > .content {display: flex; height: calc(100% - 20px); margin: 10px}
+.slider > .view > .content {display: flex; height: calc(100% - 15px); margin: 15px}
 .slider > .view > .content > .widget {margin-right: 10px; min-width: 33%; opacity: 1; transition: opacity 0.2s}
 .slider > .view > .content > .widget:last-child {margin-right: 0}
 /* slider */
@@ -48,7 +48,7 @@
 /* grid */
 .grid {display: block; height: 100%; overflow: hidden;}
 .grid > .view {display: block; position: relative; height: 100%}
-.grid > .view > .content {display: flex; height: calc(100% - 20px); margin: 10px}
+.grid > .view > .content {display: flex; height: calc(100% - 15px); margin: 5px}
 .grid > .view > .content > .widget {margin-right: 10px; width: 100%;}
 .grid > .view > .content > .widget:last-child {margin-right: 0}
 /* grid */
